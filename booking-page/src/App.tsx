@@ -10,7 +10,7 @@ function App() {
       <label>Velg dato:</label>
       <input type="date" value={dato} onChange={(e) => setDato(e.target.value)}/>
       {availableTimes.map((time) => 
-        <button key="time" className="styles.timeButton">{time}</button>
+        <button key={time} className={styles.timeButton}>{time}</button>
       )}
     </div>
   )
