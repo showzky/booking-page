@@ -8,7 +8,9 @@ function App() {
   const [name, setName] = useState('');
   const [orders, setOrders] = useState<BookingOrder[]>([]);
   const isReadyToConfirm = Boolean(dato && selectedTime && name.trim())
-  
+  function deleteOrder(index: number) {
+    setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
+  }
 
   const availableTimes = ['09:00', '11:00', '13:00', '15:00'];
 function sendOrder() {
@@ -86,9 +88,11 @@ function sendOrder() {
   <p>Ingen bestillinger enda.</p>
 ) : (
   <ul>
+    
     {orders.map((order, index) => (
       <li key={index}>
         {order.date} kl. {order.time} — {order.customerName}
+        <button  onClick={() => deleteOrder(index)}>delete</button>
       </li>
     ))}
   </ul>
