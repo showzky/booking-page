@@ -6,20 +6,31 @@ interface BookingOrder {date : string, time : string, customerName : string};
 function App() {
   const [dato, setDato] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  const [name, setName] = useState('');
+  const isReadyToConfirm = Boolean(dato && selectedTime && name.trim())
 
   const availableTimes = ['09:00', '11:00', '13:00', '15:00'];
 function sendOrder() {
+
+    if (!isReadyToConfirm) {
+      alert('Fyll inn dato, tid og navn først.');
+      return;
+    }
+
     // 1. Create the object (the "package")
     const order: BookingOrder= {
       date: dato,
       time: selectedTime,
-      customerName: "Ola Nordmann"
+      customerName: name
     };
 
     console.log(order); 
     
     // Placeholder for sending order to Python backend later
     alert("Order logic runs! Check the console."); 
+    setDato('');
+    setSelectedTime('');
+    setName('');
   };
   
 
@@ -41,6 +52,7 @@ function sendOrder() {
           key={time}
           className={time === selectedTime ? styles.selected : styles.timeButton}
           onClick={() => setSelectedTime(time)}
+          
         >
           {time}
         </button>
@@ -53,7 +65,15 @@ function sendOrder() {
 {dato && selectedTime ? (
   <div className={styles.confirmation}>
     <p>Du bestiller time: {dato} kl. {selectedTime}</p>
-    <button onClick={sendOrder}>
+    <label>Navn:</label>
+      <input 
+      type="text"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      />
+      {name.trim() === '' ? <p>Skriv navn for å fortsette.</p> : null}
+    <button onClick={sendOrder} disabled={!isReadyToConfirm}>
+      
       Bekreft Bestilling
     </button>
   </div>
