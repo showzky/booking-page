@@ -1,11 +1,13 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* ADD THIS */
+  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* ADD THIS */
+  color-scheme: light;
+  color: #0b1220;
+  background-color: #f6f8fc;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,14 +26,24 @@ a:hover {
 
 body {
   margin: 0;
+  /* ADD THIS */
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 56px 16px;
   min-width: 320px;
   min-height: 100vh;
+
+  /* ADD THIS */
+  background:
+    radial-gradient(900px 420px at 15% 0%, rgba(0, 180, 141, 0.18), transparent 60%),
+    radial-gradient(900px 420px at 85% 0%, rgba(56, 189, 248, 0.16), transparent 60%),
+    linear-gradient(180deg, #f6f8fc 0%, #eef2ff 100%);
 }
 
+/* ADD THIS */
 h1 {
-  font-size: 3.2em;
+  margin: 0;
   line-height: 1.1;
 }
 
@@ -42,7 +54,8 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* ADD THIS */
+  background-color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
