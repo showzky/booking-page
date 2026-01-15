@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import styles from './App.module.css';
-
-interface BookingOrder {date : string, time : string, customerName : string};
+import type { BookingOrder } from './types';
 
 function App() {
   const [dato, setDato] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [name, setName] = useState('');
+  const [orders, setOrders] = useState<BookingOrder[]>([]);
   const isReadyToConfirm = Boolean(dato && selectedTime && name.trim())
+  
 
   const availableTimes = ['09:00', '11:00', '13:00', '15:00'];
 function sendOrder() {
@@ -16,14 +17,15 @@ function sendOrder() {
       alert('Fyll inn dato, tid og navn først.');
       return;
     }
-
+   
     // 1. Create the object (the "package")
     const order: BookingOrder= {
       date: dato,
       time: selectedTime,
       customerName: name
+      
     };
-
+    setOrders((prevOrders) => [...prevOrders, order]);
     console.log(order); 
     
     // Placeholder for sending order to Python backend later
@@ -78,6 +80,19 @@ function sendOrder() {
     </button>
   </div>
 ) : null}
+
+<h2>Bestillingshistorikk</h2>
+{orders.length === 0 ? (
+  <p>Ingen bestillinger enda.</p>
+) : (
+  <ul>
+    {orders.map((order, index) => (
+      <li key={index}>
+        {order.date} kl. {order.time} — {order.customerName}
+      </li>
+    ))}
+  </ul>
+)}
 
     </div>
   );
