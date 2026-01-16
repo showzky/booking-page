@@ -1,37 +1,128 @@
-/**/
+/* ADD THIS */
+/* NOTE: We only use these existing selectors:
+   .App, .timeButton, .selected, .confirmation
+   (Inputs + the confirm button are styled via nested selectors.) */
 
-
-/*button style*/
-.selected{
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white; 
-    border: 2px solid #45a049;
-}
-
+/* ADD THIS */
 .App {
-    width: min(520px, 92vw);
-    padding: 24px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+  width: min(640px, 92vw);
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 18px;
 
-.timeButton {
-  margin: 8px 8px 0 0;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.25);
+  /* Card look */
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 20px 50px rgba(2, 6, 23, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset;
+
+  /* Mobile-friendly spacing */
+  display: grid;
+  gap: 12px;
 }
 
 /* ADD THIS */
-.confirmation {
-  margin-top: 16px;
-  padding: 16px;
+/* Clean inputs (date + text) */
+.App input[type='date'],
+.App input[type='text'] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.98);
+  color: #0b1220;
+  outline: none;
+}
+
+/* ADD THIS */
+.App input[type='date']:focus,
+.App input[type='text']:focus {
+  border-color: rgba(76, 175, 80, 0.55);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.18);
+}
+
+/* ADD THIS */
+/* Pill / chip button (default time button) */
+.timeButton {
+  margin: 8px 10px 0 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: rgba(15, 23, 42, 0.06);
+  color: #0b1220;
+
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+/* ADD THIS */
+.timeButton:hover {
+  background: rgba(15, 23, 42, 0.09);
+  border-color: rgba(15, 23, 42, 0.22);
+  transform: translateY(-1px);
+}
+
+/* ADD THIS */
+.timeButton:active {
+  transform: translateY(0px);
+}
+
+/* ADD THIS */
+/* Active time button (must be green) */
+.selected {
+  margin: 8px 10px 0 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 26px rgba(76, 175, 80, 0.28);
+}
+
+/* ADD THIS */
+.selected:hover {
+  background-color: #43a047;
+}
+
+/* ADD THIS */
+/* Confirmation area (inputs + big CTA button inside) */
+.confirmation {
+  margin-top: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+/* ADD THIS */
+/* Make the confirm button large and obvious (CTA)
+   (This targets only buttons inside the confirmation box.) */
+.confirmation button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: #111827;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+/* ADD THIS */
+.confirmation button:hover {
+  transform: translateY(-1px);
+}
+
+/* ADD THIS */
+.confirmation button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
 }

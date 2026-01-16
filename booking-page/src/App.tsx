@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './App.module.css';
 import type { BookingOrder } from './types';
+import { BookingHistory } from './BookingHistory';
 
 function App() {
   const [dato, setDato] = useState('');
@@ -83,20 +84,7 @@ function sendOrder() {
   </div>
 ) : null}
 
-<h2>Bestillingshistorikk</h2>
-{orders.length === 0 ? (
-  <p>Ingen bestillinger enda.</p>
-) : (
-  <ul>
-    
-    {orders.map((order, index) => (
-      <li key={index}>
-        {order.date} kl. {order.time} — {order.customerName}
-        <button  onClick={() => deleteOrder(index)}>delete</button>
-      </li>
-    ))}
-  </ul>
-)}
+<BookingHistory orders={orders} onDelete={deleteOrder} />
 
     </div>
   );
