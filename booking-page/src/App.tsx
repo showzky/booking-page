@@ -1,32 +1,48 @@
 import { useState } from 'react';
 import styles from './App.module.css';
-import type { BookingOrder } from './types';
-import { BookingHistory } from './BookingHistory';
+import { isTimeString } from './types';
+import type { BookingOrder, TimeStrings } from './types';
+import { BookingHistory } from './components/BookingHistory';
+import { BookingForm } from './components/BookingForm';
 
 function App() {
   const [dato, setDato] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedTime, setSelectedTime] = useState<TimeStrings | ''>('');
   const [name, setName] = useState('');
   const [orders, setOrders] = useState<BookingOrder[]>([]);
-  const isReadyToConfirm = Boolean(dato && selectedTime && name.trim())
+  const isReadyToConfirm = Boolean(dato && selectedTime && name.trim());
   function deleteOrder(index: number) {
     setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
   }
 
-  const availableTimes = ['09:00', '11:00', '13:00', '15:00'];
-function sendOrder() {
+  // ADD THIS
+  // Later this can come from an API as string[]
+  const rawAvailableTimes: string[] = ['09:00', '11:00', '13:00', '15:00'];
+  // ADD THIS
+  const availableTimes: TimeStrings[] = rawAvailableTimes.filter(isTimeString);
+  
+
+  function onConfirm() {
 
     if (!isReadyToConfirm) {
       alert('Fyll inn dato, tid og navn først.');
       return;
     }
-   
+
+    // ADD THIS
+    // Extra narrowing for TypeScript (should be impossible when isReadyToConfirm is true)
+    if (selectedTime === '') {
+      return;
+    }
+    
+    const createdAt = new Date().toISOString();
+
     // 1. Create the object (the "package")
-    const order: BookingOrder= {
+    const order: BookingOrder = {
       date: dato,
       time: selectedTime,
-      customerName: name
-      
+      customerName: name,
+      createdAt: createdAt,
     };
     setOrders((prevOrders) => [...prevOrders, order]);
     console.log(order); 
@@ -44,45 +60,19 @@ function sendOrder() {
     <div className={styles.App}>
       <h1>Bestill time</h1>
 
-      <label>Velg dato:</label>
-
-      <input
-        type="date"
-        value={dato}
-        onChange={(e) => setDato(e.target.value)}
+      <BookingForm
+        dato={dato}
+        selectedTime={selectedTime}
+        name={name}
+        availableTimes={availableTimes}
+        isReadyToConfirm={isReadyToConfirm}
+        onDateChange={(nextDate) => setDato(nextDate)}
+          onTimeSelect={(time) => setSelectedTime(time)}
+        onNameChange={(nextName) => setName(nextName)}
+        onConfirm={onConfirm}
       />
 
-      {availableTimes.map((time) => (
-        <button
-          key={time}
-          className={time === selectedTime ? styles.selected : styles.timeButton}
-          onClick={() => setSelectedTime(time)}
-          
-        >
-          {time}
-        </button>
-      ))}
 
-      <p>
-        Valgt: {dato} kl. {selectedTime}
-      </p>
-
-{dato && selectedTime ? (
-  <div className={styles.confirmation}>
-    <p>Du bestiller time: {dato} kl. {selectedTime}</p>
-    <label>Navn:</label>
-      <input 
-      type="text"
-      value={name}
-      onChange={(e) => setName(e.target.value)}
-      />
-      {name.trim() === '' ? <p>Skriv navn for å fortsette.</p> : null}
-    <button onClick={sendOrder} disabled={!isReadyToConfirm}>
-      
-      Bekreft Bestilling
-    </button>
-  </div>
-) : null}
 
 <BookingHistory orders={orders} onDelete={deleteOrder} />
 

@@ -1,10 +1,19 @@
-import styles from './App.module.css';
-import type { BookingOrder } from './types';
+
+// import styles from './App.module.css'; Un comment if needed
+
+import type { BookingOrder } from '../types';
 
 // Her definerer vi hva denne komponenten TRENGER for å virke (Props)
 interface Props {
   orders: BookingOrder[];
   onDelete: (index: number) => void;
+}
+
+function formatCreatedAt(isoString: string) {
+  return new Date(isoString).toLocaleString('nb-NO', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
 }
 
 export function BookingHistory({ orders, onDelete }: Props) {
@@ -20,6 +29,7 @@ export function BookingHistory({ orders, onDelete }: Props) {
       <li key={index}>
         {order.date} kl. {order.time} — {order.customerName}
         <button  onClick={() => onDelete(index)}>delete</button>
+        <p>Bestilt: {formatCreatedAt(order.createdAt)}</p>
       </li>
     ))}
   </ul>
