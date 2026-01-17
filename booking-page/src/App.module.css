@@ -1,9 +1,7 @@
-/* ADD THIS */
 /* NOTE: We only use these existing selectors:
    .App, .timeButton, .selected, .confirmation
    (Inputs + the confirm button are styled via nested selectors.) */
 
-/* ADD THIS */
 .App {
   width: min(640px, 92vw);
   margin: 32px auto;
@@ -22,10 +20,27 @@
   gap: 12px;
 }
 
-/* ADD THIS */
+.toggleButton {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + clamp(10px, 2vw, 18px));
+  right: calc(env(safe-area-inset-right, 0px) + clamp(10px, 2vw, 18px));
+  z-index: 1000;
+}
+
+.toggleButton button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  background: rgba(255, 255, 255, 0.78);
+  color: #0b1220;
+  backdrop-filter: blur(10px);
+}
+
 /* Clean inputs (date + text) */
 .App input[type='date'],
-.App input[type='text'] {
+.App input[type='text'],
+.App input[type='tel'],
+.App input[type='email'] {
   width: 100%;
   box-sizing: border-box;
   padding: 12px 14px;
@@ -36,14 +51,14 @@
   outline: none;
 }
 
-/* ADD THIS */
 .App input[type='date']:focus,
-.App input[type='text']:focus {
+.App input[type='text']:focus,
+.App input[type='tel']:focus,
+.App input[type='email']:focus {
   border-color: rgba(76, 175, 80, 0.55);
   box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.18);
 }
 
-/* ADD THIS */
 /* Pill / chip button (default time button) */
 .timeButton {
   margin: 8px 10px 0 0;
@@ -58,19 +73,16 @@
   transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
 }
 
-/* ADD THIS */
 .timeButton:hover {
   background: rgba(15, 23, 42, 0.09);
   border-color: rgba(15, 23, 42, 0.22);
   transform: translateY(-1px);
 }
 
-/* ADD THIS */
 .timeButton:active {
   transform: translateY(0px);
 }
 
-/* ADD THIS */
 /* Active time button (must be green) */
 .selected {
   margin: 8px 10px 0 0;
@@ -84,12 +96,10 @@
   box-shadow: 0 12px 26px rgba(76, 175, 80, 0.28);
 }
 
-/* ADD THIS */
 .selected:hover {
   background-color: #43a047;
 }
 
-/* ADD THIS */
 /* Confirmation area (inputs + big CTA button inside) */
 .confirmation {
   margin-top: 8px;
@@ -99,7 +109,6 @@
   border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-/* ADD THIS */
 /* Make the confirm button large and obvious (CTA)
    (This targets only buttons inside the confirmation box.) */
 .confirmation button {
@@ -115,14 +124,14 @@
   transition: transform 120ms ease, opacity 120ms ease;
 }
 
-/* ADD THIS */
 .confirmation button:hover {
   transform: translateY(-1px);
 }
 
-/* ADD THIS */
 .confirmation button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
   transform: none;
 }
+
+

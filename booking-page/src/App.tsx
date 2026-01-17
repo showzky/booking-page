@@ -4,28 +4,47 @@ import { isTimeString } from './types';
 import type { BookingOrder, TimeStrings } from './types';
 import { BookingHistory } from './components/BookingHistory';
 import { BookingForm } from './components/BookingForm';
+import { DarkModeToggle } from './themetoggle/DarkModeToggle';
+import type { DarkMode } from './themetoggle/DarkModeToggle';
+import useEffect from 'react';
+import { useState } from 'react';
 
 function App() {
   const [dato, setDato] = useState('');
   const [selectedTime, setSelectedTime] = useState<TimeStrings | ''>('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [orders, setOrders] = useState<BookingOrder[]>([]);
-  const isReadyToConfirm = Boolean(dato && selectedTime && name.trim());
+  const isReadyToConfirm = Boolean(dato && selectedTime && name.trim() && address && phone && email);
   function deleteOrder(index: number) {
     setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
   }
 
-  // ADD THIS
+  const [mode, setMode] = useState<DarkMode>('light');
+
+function toggleMode() {
+  setMode((prevMode) => {
+    if ((prevMode === 'light')) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  });
+}
+
+
   // Later this can come from an API as string[]
   const rawAvailableTimes: string[] = ['09:00', '11:00', '13:00', '15:00'];
-  // ADD THIS
+
   const availableTimes: TimeStrings[] = rawAvailableTimes.filter(isTimeString);
   
 
   function onConfirm() {
 
     if (!isReadyToConfirm) {
-      alert('Fyll inn dato, tid og navn først.');
+      alert('Fyll inn dato, tid, navn, adresse, telefon og e-post først.');
       return;
     }
 
@@ -52,6 +71,9 @@ function App() {
     setDato('');
     setSelectedTime('');
     setName('');
+    setAddress('');
+    setPhone('');
+    setEmail('');
   };
   
 
@@ -59,6 +81,10 @@ function App() {
   return (
     <div className={styles.App}>
       <h1>Bestill time</h1>
+    <div className={styles.toggleButton}>
+      <DarkModeToggle mode={mode} toggleMode={toggleMode} />
+    </div>
+     
 
       <BookingForm
         dato={dato}
@@ -70,6 +96,12 @@ function App() {
           onTimeSelect={(time) => setSelectedTime(time)}
         onNameChange={(nextName) => setName(nextName)}
         onConfirm={onConfirm}
+        address={address}
+        onAddressChange={(nextAddress) => setAddress(nextAddress)}
+        phone={phone}
+        onPhoneChange={(nextPhone) => setPhone(nextPhone)}
+        email={email}
+        onEmailChange={(nextEmail) => setEmail(nextEmail)}
       />
 
 

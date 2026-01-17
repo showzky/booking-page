@@ -1,8 +1,8 @@
-// ADD THIS
+
 // A "time string" in HH:MM format (dynamic values allowed)
 export type TimeStrings = `${number}${number}:${number}${number}`;
 
-// ADD THIS
+
 export function isTimeString(value: string): value is TimeStrings {
   const match = /^(\d{2}):(\d{2})$/.exec(value);
   if (!match) return false;
@@ -14,7 +14,6 @@ export function isTimeString(value: string): value is TimeStrings {
 }
 export interface BookingOrder {
   date: string;
-  // ADD THIS
   time: TimeStrings;
   customerName: string;
   createdAt: string;

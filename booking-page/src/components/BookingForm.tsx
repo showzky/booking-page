@@ -5,14 +5,19 @@ interface Props {
   dato: string;
   selectedTime: TimeStrings | '';
   name: string;
+  address: string;
+  phone: string;
+  email: string;
 
   availableTimes: TimeStrings[];
   isReadyToConfirm: boolean;
 
   onDateChange: (nextDate: string) => void;
-  // ADD THIS
   onTimeSelect: (time: TimeStrings) => void;
   onNameChange: (nextName: string) => void;
+  onAddressChange: (nextAddress: string) => void;
+  onPhoneChange: (nextPhone: string) => void;
+  onEmailChange: (nextEmail: string) => void;
   onConfirm: () => void;
 }
 
@@ -20,11 +25,17 @@ export function BookingForm({
   dato,
   selectedTime,
   name,
+  address,
+  phone,
+  email,
   availableTimes,
   isReadyToConfirm,
   onDateChange,
   onTimeSelect,
   onNameChange,
+  onAddressChange,
+  onPhoneChange,
+  onEmailChange,
   onConfirm,
 }: Props) {
   return (
@@ -59,12 +70,36 @@ export function BookingForm({
       <input 
       type="text"
       value={name}
-      // ADD THIS
+      
       onChange={(e) => onNameChange(e.target.value)}
       />
       {name.trim() === '' ? <p>Skriv navn for å fortsette.</p> : null}
+      <label>Adresse:</label>
+<input
+  type="text"
+  value={address}
+  onChange={(e) => onAddressChange(e.target.value)}
+/>
+{address.trim() === '' ? <p>Skriv adresse for å fortsette.</p> : null}
+
+<label>Telefonnummer:</label>
+<input
+  type="tel"
+  value={phone}
+  onChange={(e) => onPhoneChange(e.target.value)}
+/>
+{phone.trim() === '' ? <p>Skriv telefonnummer for å fortsette.</p> : null}
+
+<label>E-post:</label>
+<input
+  type="email"
+  value={email}
+  onChange={(e) => onEmailChange(e.target.value)}
+/>
+{email.trim() === '' ? <p>Skriv e-post for å fortsette.</p> : null}
     <button
-      // ADD THIS
+      type="button"
+      
       onClick={onConfirm}
       disabled={!isReadyToConfirm}
     >
@@ -73,6 +108,7 @@ export function BookingForm({
     </button>
   </div>
 ) : null}
+
     </div>
   );
 }

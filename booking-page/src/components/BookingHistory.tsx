@@ -36,4 +36,4 @@ export function BookingHistory({ orders, onDelete }: Props) {
 )}
     </div>
   );
-}
+}  

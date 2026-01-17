@@ -3,7 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* ADD THIS */
   /* We keep the app in light mode to get a clean, minimal blue-ish look */
   color-scheme: light;
   color: #0f172a;
@@ -27,16 +26,28 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* Proper centering for flex (place-items is for grid, not flex) */
+  justify-content: center;
+  align-items: center;
   min-width: 320px;
   min-height: 100vh;
 
-  /* ADD THIS */
+  /* Keeps the booking box away from screen edges (mobile/tablet/desktop) */
+  padding: clamp(12px, 3vw, 28px);
+  box-sizing: border-box;
+
   /* Blue-ish background for the whole page */
   background:
     radial-gradient(900px 500px at 15% 15%, rgba(37, 99, 235, 0.16), transparent 60%),
     radial-gradient(900px 500px at 85% 25%, rgba(14, 165, 233, 0.14), transparent 55%),
     linear-gradient(180deg, #eef6ff 0%, #f8fafc 60%, #ffffff 100%);
+}
+
+/* Make sure the React root can center its content and shrink on small screens */
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
@@ -51,7 +62,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /* ADD THIS */
   background-color: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   transition: border-color 0.25s;
