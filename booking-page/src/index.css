@@ -86,3 +86,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Dark mode styles */
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html[data-theme='dark'] body {
+  color: #e5e7eb;
+  background:
+    radial-gradient(900px 500px at 15% 15%, rgba(59, 130, 246, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 85% 25%, rgba(14, 165, 233, 0.08), transparent 55%),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #0b1220 100%);
+}
+
+html[data-theme='dark'] button {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e5e7eb;
+}
+
+html[data-theme='dark'] button:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+}

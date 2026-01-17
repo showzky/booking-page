@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import { isTimeString } from './types';
 import type { BookingOrder, TimeStrings } from './types';
@@ -6,8 +6,6 @@ import { BookingHistory } from './components/BookingHistory';
 import { BookingForm } from './components/BookingForm';
 import { DarkModeToggle } from './themetoggle/DarkModeToggle';
 import type { DarkMode } from './themetoggle/DarkModeToggle';
-import useEffect from 'react';
-import { useState } from 'react';
 
 function App() {
   const [dato, setDato] = useState('');
@@ -23,6 +21,10 @@ function App() {
   }
 
   const [mode, setMode] = useState<DarkMode>('light');
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = mode;
+  }, [mode]);
 
 function toggleMode() {
   setMode((prevMode) => {
